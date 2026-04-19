@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "nybbooks"
+version = "0.1.0"
+description = "Semantic search for The New Yorker's Best Books lists"
+authors = ["Will Hannon <whannon@fredhutch.org>"]
+readme = "README.md"
+packages = [{include = "nybbooks"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2"
+beautifulsoup4 = "^4.12"
+requests = "^2.31"
+sentence-transformers = "^5.4"
+numpy = "^2.0"
+anthropic = "^0.96"
+streamlit = "^1.40"
+markdown = "^3.7"
+
+[tool.poetry.scripts]
+nybbooks         = "nybbooks.app:main"
+nybbooks-run     = "nybbooks.pipeline.run:main"
+nybbooks-extract = "nybbooks.pipeline.extract:main"
+nybbooks-download = "nybbooks.pipeline.download:main"
+nybbooks-embed   = "nybbooks.pipeline.embed:main"
+nybbooks-tag     = "nybbooks.pipeline.tag:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
