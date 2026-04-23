@@ -2,7 +2,7 @@
 Generate sentence embeddings from book descriptions and save them to disk.
 
 Usage:
-    nybbooks-embed                                         # reads data/processed/books_with_images.csv
+    nybbooks-embed                                         # reads data/processed/books-combined.csv
     nybbooks-embed --input path/to/books.csv               # specify input CSV
     nybbooks-embed --output path/to/embeddings.npy         # specify output file
 """
@@ -50,8 +50,8 @@ def build_embeddings(input_csv: str, output_file: str, model_name: str) -> None:
 
 def main():
     parser = argparse.ArgumentParser(description="Build sentence embeddings from book descriptions.")
-    parser.add_argument("--input",  default="data/processed/books_with_images.csv", help="Input CSV (default: data/processed/books_with_images.csv)")
-    parser.add_argument("--output", default="data/embeddings.npy",                 help="Output .npy file (default: data/embeddings.npy)")
+    parser.add_argument("--input",  default="data/processed/books-combined.csv", help="Input CSV (default: data/processed/books-combined.csv)")
+    parser.add_argument("--output", default="data/embeddings.npy",               help="Output .npy file (default: data/embeddings.npy)")
     parser.add_argument("--model",  default="all-mpnet-base-v2",                   help="Sentence-transformers model name (default: all-mpnet-base-v2)")
     args = parser.parse_args()
 

@@ -12,7 +12,7 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer
 
 MODEL_NAME = "all-mpnet-base-v2"
-CSV_PATH = "data/processed/books_tagged.csv"
+CSV_PATH = "data/processed/books-combined.csv"
 EMBEDDINGS_PATH = "data/embeddings.npy"
 TAGS_PATH = "tags.txt"
 
@@ -32,7 +32,7 @@ def load_model() -> SentenceTransformer:
 
 @st.cache_resource
 def load_data() -> tuple[pd.DataFrame, np.ndarray, list[str]]:
-    csv = Path(CSV_PATH) if Path(CSV_PATH).exists() else Path("data/processed/books_with_images.csv")
+    csv = Path(CSV_PATH) if Path(CSV_PATH).exists() else Path("data/processed/books-nybb-tagged.csv")
     df = pd.read_csv(csv)
     embeddings = np.load(EMBEDDINGS_PATH)
     tags = [
@@ -188,7 +188,7 @@ def render_card(row: pd.Series) -> None:
 
 def run() -> None:
     st.set_page_config(
-        page_title="New Yorker Best Books",
+        page_title="Find Your Next Book",
         page_icon="📚",
         layout="wide",
     )
@@ -210,8 +210,8 @@ def run() -> None:
         unsafe_allow_html=True,
     )
 
-    st.title("New Yorker Best Books")
-    st.caption("Semantic search across 1,446 curated book recommendations from The New Yorker's Best Books lists, 2022–2026.")
+    st.title("Find Your Next Book")
+    st.caption("Semantic search across curated book recommendations from The New Yorker's Best Books lists (2022–2026) and NPR's Book Concierge (2014–2025).")
 
     model = load_model()
     df, embeddings, all_tags = load_data()
@@ -234,10 +234,10 @@ def run() -> None:
 
     # ── Tag filter pills ───────────────────────────────────────────────────
     available_genres = [g for g in GENRE_OPTIONS if "genre" in df.columns and g in df["genre"].values]
-    # st.caption("Filter by tag — select multiple to narrow results:")
+    source_tags = ["New Yorker Pick", "NPR Pick"]
     selected_tags: list[str] = st.pills(
         "tags",
-        options=available_genres + all_tags,
+        options=available_genres + source_tags + all_tags,
         selection_mode="multi",
         label_visibility="collapsed",
     ) or []

@@ -5,9 +5,9 @@ __pycache__/
 dist/
 .venv/
 
-# Generated data artifacts (pipeline outputs — keep books_tagged.csv and embeddings.npy)
-data/processed/books.csv
-data/processed/books_with_images.csv
+# Intermediate pipeline outputs (regenerable — final outputs are tracked)
+data/processed/books-nybb-images.csv
+data/processed/books-npr.csv
 data/images/
 
 # Environment
